@@ -1,0 +1,127 @@
+<html>
+
+<head>
+  <title>shrz - online sharing toolkit</title>
+  <script src="https://projects.verou.me/stretchy/stretchy.min.js" async></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: Cascadia Code;
+      src: url(./font.ttf);
+    }
+
+    body,
+    button,
+    input {
+      color: white;
+      font-family: Segoe UI Variable Display, Segoe UI, Roboto, Cantarell, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #23272A;
+      margin: 50px;
+    }
+
+    #submit-button {
+      background: #7289DA;
+      border-radius: 100px;
+      border: none;
+      height: 44px;
+      width: 44px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: #7289da87 1px 1px 10px;
+      aspect-ratio: 1 / 1;
+    }
+
+    h1 {
+      font-weight: 500;
+    }
+
+    a[href] {
+      color: dodgerblue;
+      font-weight: 700;
+    }
+
+    input {
+      background: #fff3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px;
+      font-size: 15px;
+      margin-right: 10px;
+      border: transparent solid 3px;
+      box-shadow: #0002 0 1px 10px;
+    }
+
+    form {
+      display: flex;
+      align-items: center;
+    }
+
+    input::placeholder {
+      color: #fffa;
+    }
+
+    input:invalid:not(:focus):not(:empty) {
+      border: #f56 solid 3px;
+    }
+
+    .alert {
+      border-radius: 4px;
+      padding: 11px 15px;
+    }
+
+    .alert-success {
+      background: #365f36;
+      border: #58732d 1px solid;
+    }
+
+    .alert-failure {
+      background: #681d00;
+      border: #99440c 1px solid;
+    }
+
+    textarea {
+      border-radius: 4px;
+      background: #333;
+      font-family: Cascadia Code;
+      white-space: pre-wrap;
+      padding: 10px;
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      resize: none;
+      color: white;
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>shrz</h1>
+  {% if embed_url %}
+  <div class="alert alert-success">Success:
+    <textarea
+      readonly onclick="this.select();document.execCommand('copy')">||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||||​||{{ embed_url }}</textarea>
+  </div>
+  <br>
+  {% elif message %}
+  <div class="alert alert-failure">{{ message }}</div>
+  <br>
+  {% endif %}
+  <form action="{{ url_for('index') }}" method="POST">
+    <input type="url" name="url" required pattern="https://github\.com/.*" placeholder="Input URL..."
+      validationMessage="Supported domains: github.com" />
+    <button id="submit-button">
+      <span class="material-icons-round"> send </span>
+    </button>
+  </form>
+
+  {% set example_link = ['https://github.com/Picoseconds/lnk-parser/blob/master/src/LNKParser.ts', 'https://github.com/Picoseconds/sanctuary/blob/master/src/console.ts', 'https://github.com/Picoseconds/GlacierFormats/blob/master/hitman3_rpkg2.ksy', 'https://github.com/CosmosOS/Cosmos/blob/bd9f249757e335edebf45cc835ce7f04276f5b26/source/Cosmos.System2/FileSystem/ISO9660/ISO9660FileSystem.cs', 'https://github.com/glacier-modding/RPKG-Tool/blob/main/rpkg-gui/HashCalculator.xaml.cs#L40-L53'] | random %}
+  <p>Enter a github.com file link, such as <a href="{{ example_link }}">{{ example_link }}</a></p>
+  <script>window.onresize = () => Stretchy.resizeAll()</script>
+</body>
+
+</html>

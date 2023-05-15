@@ -1,0 +1,7 @@
+<html>
+    <head>
+        <title>{{ title }} - on shrz</title>
+        <link rel="alternate" type="application/json+oembed" href="{{ url_for(request.endpoint, **request.view_args) }}.json">
+        {{ tags|safe }}
+    </head>
+</html>

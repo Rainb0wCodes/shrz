@@ -1,0 +1,38 @@
+<html>
+
+<head>
+  <title>shrz - online sharing toolkit</title>
+  <script src="https://projects.verou.me/stretchy/stretchy.min.js" async></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <style>
+    body {
+      background: #23272A;
+      margin: 50px;
+      color: white;
+      font-family: Segoe UI Variable Display, Segoe UI, Roboto, Cantarell, -apple-system, sans-serif;
+    }
+
+    h1 {
+      font-weight: 500;
+    }
+
+    .alert {
+      border-radius: 4px;
+      padding: 11px 15px;
+    }
+
+    .alert-failure {
+      background: #681d00;
+      border: #99440c 1px solid;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>shrz</h1>
+  {% if message %}
+  <div class="alert alert-failure">{{ message }}</div>
+  {% endif %}
+</body>
+
+</html>
